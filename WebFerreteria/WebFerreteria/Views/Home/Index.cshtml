@@ -1,0 +1,36 @@
+﻿@model LoginModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenido al sistema de gestion de ferreteria</h1>    
+</div>
+
+<div class="row">
+    <form class="col s12" method="post">
+        <div asp-validation-summary="All" class="red-text" aria-live="polite"></div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="Input.Correo" class="validate" autocomplete="email" aria-label="Correo Electrónico" />
+                <label asp-for="Input.Correo">Correo</label>
+                <span asp-validation-for="Input.Correo" class="red-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input asp-for="Input.Password" class="validate" type="password" autocomplete="current-password" aria-label="Contraseña" />
+                <label asp-for="Input.Password">Contraseña</label>
+                <span asp-validation-for="Input.Password" class="red-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn waves-effect waves-light blue" aria-label="Iniciar Sesión">Iniciar Sesión</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

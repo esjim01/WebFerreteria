@@ -1,0 +1,92 @@
+﻿<!
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Define la codificación de caracteres -->
+    <meta charset="utf-8" />
+    <!-- Configura la vista para dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Título dinámico de la página -->
+    <title>@ViewData["Title"] - La Puntilla</title>
+    <!-- Materialize CSS desde CDN para un diseño moderno y responsivo -->
+    <link rel="stylesheet" type="text/css" href="~/materialize/css/materialize.css" />
+    <!-- Material Icons para íconos de Materialize -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- Estilos personalizados con control de versión -->
+    <link rel="stylesheet" href="~/css/theme_style.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Barra de navegación con Materialize -->
+    <header>
+        <nav class="blue darken-2">
+            <div class="nav-wrapper container">
+                <!-- Logotipo con enlace a la página principal -->
+                <a href="/" class="brand-logo">La Puntilla</a>
+                <!-- Botón para el menú en dispositivos móviles -->
+                <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <!-- Menú para pantallas grandes -->
+                <ul class="right hide-on-med-and-down">
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Home" asp-action="Privacy">Privacidad</a></li>
+                    <li><a asp-controller="Usuario" asp-action="Index">Usuarios</a></li>
+                    <li><a asp-controller="Clientes" asp-action="Index">Clientes</a></li>
+                    <li><a asp-controller="Empresa" asp-action="Index">Empresa</a></li>
+                    <li><a asp-controller="Entrega" asp-action="Index">Entrega</a></li>
+                    <li><a asp-controller="Producto" asp-action="Index">Producto</a></li>
+                    <li><a asp-controller="Pedido" asp-action="Index">Pedido</a></li>
+                    <li><a asp-controller="DetallePedido" asp-action="Index">Detalle del pedido</a></li>
+                    <li><a asp-controller="Factura" asp-action="Index">Factura</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Menú lateral para dispositivos móviles -->
+        <ul class="sidenav" id="mobile-nav">
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li><a asp-controller="Home" asp-action="Privacy">Privacidad</a></li>
+            <li><a asp-controller="Clientes" asp-action="Index">Clientes</a></li>
+            <li><a asp-controller="Empresa" asp-action="Index">Empresa</a></li>
+            <li><a asp-controller="Entrega" asp-action="Index">Entrega</a></li>
+            <li><a asp-controller="Producto" asp-action="Index">Producto</a></li>
+            <li><a asp-controller="Pedido" asp-action="Index">Pedido</a></li>
+            <li><a asp-controller="DetallePedido" asp-action="Index">Detalle del pedido</a></li>
+            <li><a asp-controller="Factura" asp-action="Index">Factura</a></li>
+        </ul>
+    </header>
+
+    <!-- Contenido principal de la página -->
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="page-footer grey lighten-4">
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <!-- Año dinámico para mantener el footer actualizado -->
+                    <p class="grey-text text-darken-1">&copy; @DateTime.Now.Year - WebFerreteria - <a asp-controller="Home" asp-action="Privacy">Privacidad</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts necesarios -->
+    <!-- jQuery desde CDN para compatibilidad con Materialize -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Materialize JS desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Inicialización de componentes de Materialize -->
+    <script>
+        // Inicializa todos los componentes de Materialize automáticamente
+        document.addEventListener('DOMContentLoaded', function () {
+            M.AutoInit();
+        });
+    </script>
+    <!-- Script personalizado con control de versión -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Permite a las vistas agregar scripts adicionales -->
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
