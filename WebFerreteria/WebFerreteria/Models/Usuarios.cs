@@ -10,11 +10,16 @@ public partial class Usuarios
 
     public string? NombreCompleto { get; set; }
 
+    [Required]
+    [EmailAddress]
     public string? Correo { get; set; }
 
+    [Required]
+    [DataType(DataType.Password)]
     public string? Contrasena { get; set; }
 
-    public string? Rol { get; set; }
+    [Required]
+    public string? Rol { get; set; } // "admin", "empleado", "ventas", etc.
 
     public bool? Estado { get; set; }
 

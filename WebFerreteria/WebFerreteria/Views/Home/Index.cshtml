@@ -1,44 +1,54 @@
 ﻿@model WebFerreteria.Models.Usuarios.LoginModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
+
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <link rel="stylesheet" type="text/css" href="~/materialize/css/materialize.css" />
-    <!-- Material Icons para íconos de Materialize -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema de Gestión de Ferretería</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="~/materialize/css/materialize.min.css" />
+
+    <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <!-- Estilos personalizados con control de versión -->
+
+    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="~/css/theme_style.css" asp-append-version="true" />
+
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
 </head>
-<body>
-<div class="text-center">
-    <h1 class="display-4">Bienvenido al sistema de gestión de ferretería</h1>    
-</div>
 
-<div class="row">
-    <form class="col s12" method="post">
-        <div asp-validation-summary="All" class="red-text" aria-live="polite"></div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input asp-for="Input.Correo" class="validate" autocomplete="email" aria-label="Correo Electrónico" />
-                <label asp-for="Input.Correo">Correo</label>
-                <span asp-validation-for="Input.Correo" class="red-text"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input asp-for="Input.Contrasena" class="validate" type="password" autocomplete="current-password" aria-label="Contraseña" />
-                <label asp-for="Input.Contrasena">Contraseña</label>
-                <span asp-validation-for="Input.Contrasena" class="red-text"></span>
-            </div>
-        </div>
-        <div class="row">
-            <button type="submit" class="btn waves-effect waves-light blue" aria-label="Iniciar Sesión">Iniciar Sesión</button>
-        </div>
-    </form>
-</div>
+<body class="blue lighten-5">
+    @* este index quedo pelon *@
+
+        @* este index quedo pelon *@
+            @* este index quedo pelon *@
+                @* este index quedo pelon *@
+    @* este index quedo pelon *@
+    @* este index quedo pelon *@
+
+    @section Scripts {
+        <!-- jQuery y Materialize JS -->
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/materialize/js/materialize.min.js"></script>
+
+        <!-- Scripts de validación -->
+        <partial name="_ValidationScriptsPartial" />
+
+        <!-- Inicialización de componentes Materialize -->
+        <script>
+            $(document).ready(function(){
+                // Inicializar elementos de Materialize
+                M.updateTextFields();
+            });
+        </script>
+    }
 </body>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+</html>
