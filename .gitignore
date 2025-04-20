@@ -1,0 +1,18 @@
+# Archivos de Visual Studio
+.vs/
+*.suo
+*.user
+bin/
+obj/
+*.csproj.user
+
+# Archivos de configuración sensibles
+web.config  # Si contiene contraseñas, exclúyelo
+*.bak
+
+# Carpetas de paquetes
+packages/
+
+# Archivos de compilación
+*.dll
+*.exe

@@ -1,11 +1,18 @@
-﻿@model LoginModel
+﻿@model WebFerreteria.Models.Usuarios.LoginModel
 
 @{
     ViewData["Title"] = "Home Page";
 }
-
+<head>
+    <link rel="stylesheet" type="text/css" href="~/materialize/css/materialize.css" />
+    <!-- Material Icons para íconos de Materialize -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- Estilos personalizados con control de versión -->
+    <link rel="stylesheet" href="~/css/theme_style.css" asp-append-version="true" />
+</head>
+<body>
 <div class="text-center">
-    <h1 class="display-4">Bienvenido al sistema de gestion de ferreteria</h1>    
+    <h1 class="display-4">Bienvenido al sistema de gestión de ferretería</h1>    
 </div>
 
 <div class="row">
@@ -20,9 +27,9 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input asp-for="Input.Password" class="validate" type="password" autocomplete="current-password" aria-label="Contraseña" />
-                <label asp-for="Input.Password">Contraseña</label>
-                <span asp-validation-for="Input.Password" class="red-text"></span>
+                <input asp-for="Input.Contrasena" class="validate" type="password" autocomplete="current-password" aria-label="Contraseña" />
+                <label asp-for="Input.Contrasena">Contraseña</label>
+                <span asp-validation-for="Input.Contrasena" class="red-text"></span>
             </div>
         </div>
         <div class="row">
@@ -30,6 +37,7 @@
         </div>
     </form>
 </div>
+</body>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
