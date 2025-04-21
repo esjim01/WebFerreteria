@@ -34,11 +34,11 @@ public class AccountController : Controller
             if (usuario != null)
             {
                 var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Email, usuario.Correo),
-                    new Claim(ClaimTypes.Role, usuario.Rol),
-                    new Claim("FullName", $"{usuario.NombreCompleto}")
-                };
+            {
+                new Claim(ClaimTypes.Email, usuario.Correo),
+                new Claim(ClaimTypes.Role, usuario.Rol ?? "Usuario"),
+                new Claim("FullName", usuario.NombreCompleto ?? "Usuario")
+            };
 
                 var claimsIdentity = new ClaimsIdentity(
                     claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -47,7 +47,8 @@ public class AccountController : Controller
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity));
 
-                if (!string.IsNullOrEmpty(returnUrl))
+                // Redirige al returnUrl o a la página principal
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 {
                     return LocalRedirect(returnUrl);
                 }
