@@ -28,11 +28,15 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
+            Console.WriteLine($"Intentando autenticar con correo: {model.Correo}");
+
             var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.Correo == model.Correo && u.Contrasena == model.Contrasena);
 
             if (usuario != null)
             {
+                Console.WriteLine($"Usuario encontrado: {usuario.Correo}, Rol: {usuario.Rol}");
+
                 var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, usuario.Correo),
@@ -43,20 +47,33 @@ public class AccountController : Controller
                 var claimsIdentity = new ClaimsIdentity(
                     claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
+                Console.WriteLine("Creando cookie de autenticación...");
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity));
 
+                Console.WriteLine("Cookie creada. Redirigiendo...");
+
                 // Redirige al returnUrl o a la página principal
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 {
+                    Console.WriteLine($"Redirigiendo a: {returnUrl}");
                     return LocalRedirect(returnUrl);
                 }
-
+                Console.WriteLine("Redirigiendo a /Home/Index");
                 return RedirectToAction("Index", "Home");
             }
 
+            Console.WriteLine("Usuario no encontrado.");
             ModelState.AddModelError(string.Empty, "Credenciales inválidas");
+        }
+        else
+        {
+            Console.WriteLine("ModelState no es válido.");
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                Console.WriteLine($"Error de validación: {error.ErrorMessage}");
+            }
         }
 
         return View(model);
