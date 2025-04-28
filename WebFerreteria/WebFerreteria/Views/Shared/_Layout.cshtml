@@ -27,7 +27,7 @@
 
                 <ul class="right hide-on-med-and-down">
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-controller="Home" asp-action="Privacy">Privacidad</a></li>
+                    <li><a asp-controller="Home" asp-action="Privacy">Politicas</a></li>
 
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -43,7 +43,7 @@
                             <li><a asp-controller="DetallePedido" asp-action="Index">Detalle del pedido</a></li>
                             <li><a asp-controller="Factura" asp-action="Index">Factura</a></li>
                         }
-                        else if (User.IsInRole("usuario"))
+                        else if (User.IsInRole("Usuario"))
                         {
                             <li><a asp-controller="Clientes" asp-action="Index">Clientes</a></li>
                             <li><a asp-controller="Entrega" asp-action="Index">Entrega</a></li>
@@ -94,7 +94,7 @@
                     <li><a asp-controller="DetallePedido" asp-action="Index">Detalle del pedido</a></li>
                     <li><a asp-controller="Factura" asp-action="Index">Factura</a></li>
                 }
-                else if (User.IsInRole("usuario"))
+                else if (User.IsInRole("Usuario"))
                 {
                     <li><a asp-controller="Clientes" asp-action="Index">Clientes</a></li>
                     <li><a asp-controller="Entrega" asp-action="Index">Entrega</a></li>
@@ -105,7 +105,7 @@
 
                 // Botón logout móvil
                 <li>
-                    <form asp-controller="Account" asp-action="Logout" method="post">
+                    <form asp-controller="Home" asp-action="Logout" method="post">
                         <button type="submit" class="btn-flat" style="background:none;border:none;">
                             <i class="material-icons left">exit_to_app</i>Cerrar Sesión
                         </button>
@@ -116,7 +116,7 @@
             {
                 // Botón login móvil
                 <li>
-                    <a asp-controller="Login" asp-action="Index">
+                    <a asp-controller="Home" asp-action="login">
                         <i class="material-icons left">account_circle</i>Iniciar Sesión
                     </a>
                 </li>

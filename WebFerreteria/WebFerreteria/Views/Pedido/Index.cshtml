@@ -1,47 +1,49 @@
 ﻿@model IEnumerable<WebFerreteria.Models.Pedidos>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pedidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="usuarios-header">
+    <h4>Pedidos Registrados</h4>
+    <a asp-action="Create" class="btn-large blue darken-2 waves-effect waves-light">
+        <i class="material-icons left">person_add</i> Crear Pedido
+    </a>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cliente)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="card usuarios-table-container">
+    <div class="card-content">
+        <table class="highlight responsive-table centered striped">
+            <thead class="blue-grey lighten-4">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Fecha)</th>
+                    <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                    <th>@Html.DisplayNameFor(model => model.Cliente)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Cliente.Id)</td>
+                        <td class="acciones-btns">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn-small blue tooltipped" data-position="top" data-tooltip="Editar">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn-small green tooltipped" data-position="top" data-tooltip="Detalles">
+                                <i class="material-icons">info</i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn-small red tooltipped" data-position="top" data-tooltip="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este pedido?');">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

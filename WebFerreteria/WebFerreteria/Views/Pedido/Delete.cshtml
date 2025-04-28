@@ -1,39 +1,47 @@
 ﻿@model WebFerreteria.Models.Pedidos
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar Pedido";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<div class="container">
+    <br />
+    <h4 class="edit-title black-text text-darken-2">¿Estás seguro de eliminar este pedido?</h4>
+    <div class="card white z-depth-2">
+        <div class="card-content">
+            <ul class="collection with-header">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Pedidos</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cliente)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cliente.Id)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+                <li class="collection-header">
+                    <h5><i class="material-icons left">calendar_today</i>Fecha</h5>
+                </li>
+                <li class="collection-item">@Model.Fecha</li>
+
+                <li class="collection-header">
+                    <h5><i class="material-icons left">check_circle</i>Estado</h5>
+                </li>
+                <li class="collection-item">@Model.Estado</li>
+
+                <li class="collection-header">
+                    <h5><i class="material-icons left">person</i>Cliente</h5>
+                </li>
+                <li class="collection-item">@Model.Cliente.Id</li>
+
+            </ul>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <div class="row btn-group">
+                    <div class="col s12">
+                        <button type="submit" class="btn-large blue tooltipped">
+                            <i class="material-icons left">delete</i> Eliminar
+                        </button>
+                        <a asp-action="Index" class="btn-large grey darken-1 waves-effect waves-light">
+                            <i class="material-icons left">arrow_back</i> Cancelar
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

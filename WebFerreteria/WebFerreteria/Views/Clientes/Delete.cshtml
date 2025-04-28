@@ -1,45 +1,52 @@
 ﻿@model WebFerreteria.Models.Clientes
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar Cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<div class="container">
+    <br />
+    <h4 class="edit-title black-text text-darken-2">¿Estás seguro de eliminar este cliente?</h4>
+    <div class="card white z-depth-2">
+        <div class="card-content">
+            <ul class="collection with-header">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Clientes</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Correo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Correo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Direccion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Direccion)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+                <li class="collection-header">
+                    <h5><i class="material-icons left">person</i>Nombre</h5>
+                </li>
+                <li class="collection-item">@Model.Nombre</li>
+
+                <li class="collection-header">
+                    <h5><i class="material-icons left">phone</i>Teléfono</h5>
+                </li>
+                <li class="collection-item">@Model.Telefono</li>
+
+                <li class="collection-header">
+                    <h5><i class="material-icons left">email</i>Correo</h5>
+                </li>
+                <li class="collection-item">@Model.Correo</li>
+
+                <li class="collection-header">
+                    <h5><i class="material-icons left">location_on</i>Dirección</h5>
+                </li>
+                <li class="collection-item">@Model.Direccion</li>
+
+            </ul>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <div class="row btn-group">
+                    <div class="col s12">
+                        <button type="submit" class="btn-large blue tooltipped">
+                            <i class="material-icons left">delete</i> Eliminar
+                        </button>
+                        <a asp-action="Index" class="btn-large grey darken-1 waves-effect waves-light">
+                            <i class="material-icons left">arrow_back</i> Cancelar
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

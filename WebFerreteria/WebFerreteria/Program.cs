@@ -55,15 +55,16 @@ public class Startup
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
-                options.LoginPath = "/Account/Login";
-                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.LoginPath = "/Login/Index";
+                options.AccessDeniedPath = "/Login/AccesoDenegado";
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
             });
 
         // 3. Autorización
         services.AddAuthorization(options =>
         {
-            options.AddPolicy("AdminOnly", policy => policy.RequireRole("Administrador"));
+            options.AddPolicy("Administrador", policy => policy.RequireRole("Administrador"));
+            options.AddPolicy("Usuario", policy => policy.RequireRole("Usuario"));
         });
 
         // 4. MVC

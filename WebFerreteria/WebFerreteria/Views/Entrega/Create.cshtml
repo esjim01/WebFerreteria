@@ -1,46 +1,65 @@
 ﻿@model WebFerreteria.Models.Entregas
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear Entrega";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<div class="container">
+    <h4 class="create-title">Registrar Entrega</h4>
 
-<h4>Entregas</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="PedidoId" class="control-label"></label>
-                <select asp-for="PedidoId" class ="form-control" asp-items="ViewBag.PedidoId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="EntregadoPor" class="control-label"></label>
-                <select asp-for="EntregadoPor" class ="form-control" asp-items="ViewBag.EntregadoPor"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="DireccionEntrega" class="control-label"></label>
-                <input asp-for="DireccionEntrega" class="form-control" />
-                <span asp-validation-for="DireccionEntrega" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaEntrega" class="control-label"></label>
-                <input asp-for="FechaEntrega" class="form-control" />
-                <span asp-validation-for="FechaEntrega" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="card white create-card z-depth-2">
+        <div class="card-content">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="red-text text-darken-2"></div>
+
+                <!-- Pedido -->
+                <div class="input-field">
+                    <i class="material-icons prefix">receipt_long</i>
+                    <select asp-for="PedidoId" asp-items="ViewBag.PedidoId" class="browser-default"></select>
+                    <label>Pedido</label>
+                </div>
+
+                <!-- Entregado Por -->
+                <div class="input-field">
+                    <i class="material-icons prefix">person</i>
+                    <select asp-for="EntregadoPor" asp-items="ViewBag.EntregadoPor" class="browser-default"></select>
+                    <label>Entregado Por</label>
+                </div>
+
+                <!-- Dirección de Entrega -->
+                <div class="input-field">
+                    <i class="material-icons prefix">location_on</i>
+                    <input asp-for="DireccionEntrega" id="DireccionEntrega" class="validate" />
+                    <label asp-for="DireccionEntrega"></label>
+                    <span asp-validation-for="DireccionEntrega" class="helper-text red-text"></span>
+                </div>
+
+                <!-- Fecha de Entrega -->
+                <div class="input-field">
+                    <i class="material-icons prefix">event</i>
+                    <input asp-for="FechaEntrega" id="FechaEntrega" type="text" class="validate datepicker" />
+                    <label asp-for="FechaEntrega">Fecha de Entrega</label>
+                    <span asp-validation-for="FechaEntrega" class="helper-text red-text"></span>
+                </div>
+
+                <!-- Botones -->
+                <div class="row btn-group">
+                    <div class="col s12">
+                        <button type="submit" class="btn-large blue darken-2 waves-effect waves-light">
+                            <i class="material-icons left">save</i> Registrar
+                        </button>
+                        <a asp-action="Index" class="btn-large grey darken-1 waves-effect waves-light">
+                            <i class="material-icons left">arrow_back</i> Regresar
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

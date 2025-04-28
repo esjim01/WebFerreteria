@@ -1,49 +1,69 @@
 ﻿@model WebFerreteria.Models.Entregas
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Entrega";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<div class="container">
+    <br />
+    <h4 class="edit-title">Editar Entrega</h4>
+    <div class="card white edit-card z-depth-2">
+        <div class="card-content">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="red-text text-darken-2"></div>
+                <input type="hidden" asp-for="Id" />
 
-<h4>Entregas</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="PedidoId" class="control-label"></label>
-                <select asp-for="PedidoId" class="form-control" asp-items="ViewBag.PedidoId"></select>
-                <span asp-validation-for="PedidoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EntregadoPor" class="control-label"></label>
-                <select asp-for="EntregadoPor" class="form-control" asp-items="ViewBag.EntregadoPor"></select>
-                <span asp-validation-for="EntregadoPor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DireccionEntrega" class="control-label"></label>
-                <input asp-for="DireccionEntrega" class="form-control" />
-                <span asp-validation-for="DireccionEntrega" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaEntrega" class="control-label"></label>
-                <input asp-for="FechaEntrega" class="form-control" />
-                <span asp-validation-for="FechaEntrega" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <!-- PedidoId -->
+                <div class="input-field">
+                    <i class="material-icons prefix">receipt</i>
+                    <select asp-for="PedidoId" asp-items="ViewBag.PedidoId" class="browser-default"></select>
+                    <label asp-for="PedidoId" class="active">Pedido</label>
+                    <span asp-validation-for="PedidoId" class="helper-text red-text"></span>
+                </div>
+
+                <!-- EntregadoPor -->
+                <div class="input-field">
+                    <i class="material-icons prefix">person</i>
+                    <select asp-for="EntregadoPor" asp-items="ViewBag.EntregadoPor" class="browser-default"></select>
+                    <label asp-for="EntregadoPor" class="active">Entregado Por</label>
+                    <span asp-validation-for="EntregadoPor" class="helper-text red-text"></span>
+                </div>
+
+                <!-- Dirección de Entrega -->
+                <div class="input-field">
+                    <i class="material-icons prefix">location_on</i>
+                    <input asp-for="DireccionEntrega" id="DireccionEntrega" class="validate" />
+                    <label asp-for="DireccionEntrega"></label>
+                    <span asp-validation-for="DireccionEntrega" class="helper-text red-text"></span>
+                </div>
+
+                <!-- Fecha de Entrega -->
+                <div class="input-field">
+                    <i class="material-icons prefix">event</i>
+                    <input asp-for="FechaEntrega" id="FechaEntrega" type="date" class="validate" />
+                    <label asp-for="FechaEntrega" class="active"></label>
+                    <span asp-validation-for="FechaEntrega" class="helper-text red-text"></span>
+                </div>
+
+                <!-- Botones -->
+                <div class="row btn-group">
+                    <div class="col s12">
+                        <button type="submit" class="btn-large blue darken-2 waves-effect waves-light">
+                            <i class="material-icons left">save</i> Guardar
+                        </button>
+                        <a asp-action="Index" class="btn-large grey darken-1 waves-effect waves-light">
+                            <i class="material-icons left">arrow_back</i> Regresar
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        { await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    }
 }
