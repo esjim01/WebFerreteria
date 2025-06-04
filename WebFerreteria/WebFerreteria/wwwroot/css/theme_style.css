@@ -7,10 +7,13 @@ body {
 }
 
 /* Estilo para el logotipo en la barra de navegación */
-.brand-logo {
+brand-logo {
+    padding-left: 15px;
     font-weight: bold;
     font-size: 1.8rem; /* Tamaño ligeramente más grande */
     color: #ffffff !important; /* Blanco para destacar en la barra azul */
+    margin-right: 30px; /* separa el logo del resto del menú */
+    white-space: nowrap; /* evita que el texto se divida en varias líneas */
 }
 
 /* Estilo para los enlaces de la barra de navegación */

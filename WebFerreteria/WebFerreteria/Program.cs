@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+/*using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using WebFerreteria.Models;
 
@@ -98,5 +98,59 @@ public class Startup
                 pattern: "{controller=Home}/{action=Index}/{id?}");
         });
     }
+}*/
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+using WebFerreteria.Models;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// 1. Configurar la base de datos
+builder.Services.AddDbContext<FerreteriaDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// 2. Autenticación con cookies
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login"; // Asegúrate de que sea el controlador correcto
+        options.AccessDeniedPath = "/Account/AccessDenied"; // Puedes crear esta vista después
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    });
+
+// 3. Autorización (si usas roles)
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Administrador", policy => policy.RequireRole("Administrador"));
+    options.AddPolicy("Usuario", policy => policy.RequireRole("Usuario"));
+});
+
+// 4. MVC
+builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor(); // Middleware adicional si lo necesitas
+
+var app = builder.Build();
+
+// Middleware
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+// ¡ORDEN IMPORTANTE!
+app.UseAuthentication(); // <-- Agregado
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();
+
 

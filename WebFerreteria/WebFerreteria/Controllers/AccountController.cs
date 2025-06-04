@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WebFerreteria.Models;
+using WebFerreteria.Models.ViewModels;
 
 public class AccountController : Controller
 {
@@ -26,7 +27,7 @@ public class AccountController : Controller
     //Lo ideal es que tengan una vista (carpeta) llamada Account y dentro de la vista una pagina llamada Login
     // Deben tener un método llamado Login(), que sólo va a retornar la vista
     [HttpPost]
-    public async Task<IActionResult> Login(Usuarios model, string returnUrl = null)
+    public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
     {
         if (ModelState.IsValid)
         {
