@@ -23,6 +23,8 @@ public class AccountController : Controller
         return View();
     }
 
+    //Lo ideal es que tengan una vista (carpeta) llamada Account y dentro de la vista una pagina llamada Login
+    // Deben tener un método llamado Login(), que sólo va a retornar la vista
     [HttpPost]
     public async Task<IActionResult> Login(Usuarios model, string returnUrl = null)
     {

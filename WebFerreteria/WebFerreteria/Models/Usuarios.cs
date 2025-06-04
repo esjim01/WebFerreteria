@@ -18,4 +18,15 @@ public partial class Usuarios
     public bool? Estado { get; set; }
 
     public virtual ICollection<Entregas> Entregas { get; set; } = new List<Entregas>();
+
+    public InputModel Input { get; set; }
+
+    public class InputModel
+    {
+        public string Correo { get; set; }
+        public string Contrasena { get; set; }
+    }
+
+
 }
+
