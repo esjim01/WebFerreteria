@@ -21,8 +21,10 @@ namespace WebFerreteria.Controllers
         // GET: Factura
         public async Task<IActionResult> Index()
         {
-            var ferreteriaDbContext = _context.Facturas.Include(f => f.Pedido);
-            return View(await ferreteriaDbContext.ToListAsync());
+            var facturas = _context.Facturas
+                .Include(f => f.Pedido)
+                    .ThenInclude(p => p.Cliente); // Incluye Cliente para acceder al nombre
+            return View(await facturas.ToListAsync());
         }
 
         // GET: Factura/Details/5
@@ -35,6 +37,7 @@ namespace WebFerreteria.Controllers
 
             var facturas = await _context.Facturas
                 .Include(f => f.Pedido)
+                .ThenInclude(p => p.Cliente)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (facturas == null)
             {
@@ -47,7 +50,7 @@ namespace WebFerreteria.Controllers
         // GET: Factura/Create
         public IActionResult Create()
         {
-            ViewData["PedidoId"] = new SelectList(_context.Pedidos, "Id", "Id");
+            ViewData["PedidoId"] = new SelectList(_context.Pedidos, "Id", "Cliente.Nombre");
             return View();
         }
 
@@ -64,7 +67,7 @@ namespace WebFerreteria.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PedidoId"] = new SelectList(_context.Pedidos, "Id", "Id", facturas.PedidoId);
+            ViewData["PedidoId"] = new SelectList(_context.Pedidos, "Id", "Cliente.Nombre", facturas.PedidoId);
             return View(facturas);
         }
 
@@ -81,7 +84,7 @@ namespace WebFerreteria.Controllers
             {
                 return NotFound();
             }
-            ViewData["PedidoId"] = new SelectList(_context.Pedidos, "Id", "Id", facturas.PedidoId);
+            ViewData["PedidoId"] = new SelectList(_context.Pedidos, "Id", "Cliente.Nombre", facturas.PedidoId);
             return View(facturas);
         }
 
@@ -117,7 +120,7 @@ namespace WebFerreteria.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PedidoId"] = new SelectList(_context.Pedidos, "Id", "Id", facturas.PedidoId);
+            ViewData["PedidoId"] = new SelectList(_context.Pedidos, "Id", "Cliente.Nombre", facturas.PedidoId);
             return View(facturas);
         }
 

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using WebFerreteria.Models;
 
 namespace WebFerreteria.Controllers
@@ -19,8 +20,36 @@ namespace WebFerreteria.Controllers
         }
 
         // GET: Clientes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, string sortOrder)
         {
+            // Guardar el término de búsqueda para mantenerlo en la vista
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentSort"] = sortOrder;
+
+            // Consulta LINQ: obtener todos los clientes
+            var clientes = from c in _context.Clientes
+                           select c;
+
+            // Filtrar por término de búsqueda
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                clientes = clientes.Where(c => c.Nombre.Contains(searchString) ||
+                                              c.Correo.Contains(searchString) ||
+                                              c.Telefono.Contains(searchString));
+            }
+
+            // Ordenamiento
+            switch (sortOrder)
+            {
+                case "nombre_desc":
+                    clientes = clientes.OrderByDescending(c => c.Nombre);
+                    break;
+                default:
+                    clientes = clientes.OrderBy(c => c.Nombre); // Ordenar ascendentemente
+                    break;
+            }
+
+
             return View(await _context.Clientes.ToListAsync());
         }
 
