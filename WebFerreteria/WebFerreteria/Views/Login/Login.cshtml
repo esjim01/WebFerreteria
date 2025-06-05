@@ -1,0 +1,114 @@
+<<<<<<<< HEAD:WebFerreteria/WebFerreteria/Views/Login/Login.cshtml
+﻿@model WebFerreteria.Models.ViewModels.LoginViewModel
+
+========
+﻿@model WebFerreteria.Models.Usuarios.LoginModel
+>>>>>>>> parent of b3178de (Se crea api para integracion de las funcionalidades):WebFerreteria/WebFerreteria/Views/Login/Index.cshtml
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema de Gestión de Ferretería</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="~/materialize/css/materialize.min.css" />
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="~/css/theme_style.css" asp-append-version="true" />
+
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+</head>
+
+<body class="blue lighten-5">
+    <div class="container">
+        <div class="row valign-wrapper" style="min-height: 100vh;">
+            <div class="col s12 m8 offset-m2 l6 offset-l3">
+                <div class="card z-depth-4">
+                    <div class="card-content">
+                        <!-- Logo/Header -->
+                        <div class="center-align">
+                            <!-- Logo personalizado -->
+                            <img src="~/images/Login_Index/Logo_la_puntilla.jpg"
+                                 alt="Logo Ferretería"
+                                 class="responsive-img"
+                                 style="max-height: 80px; width: auto;">
+                            <h4 class="blue-text">Sistema de Gestión de Ferretería</h4>
+                            <p class="grey-text">Ingrese sus credenciales para acceder</p>
+                        </div>
+
+                        <!-- Formulario -->
+<<<<<<<< HEAD:WebFerreteria/WebFerreteria/Views/Login/Login.cshtml
+<!--Action es el que dice cuál es el controlador a invocar-->
+                        <form asp-controller="Account" asp-action="Login" method="post">
+========
+                        <form method="post">
+>>>>>>>> parent of b3178de (Se crea api para integracion de las funcionalidades):WebFerreteria/WebFerreteria/Views/Login/Index.cshtml
+                            <div asp-validation-summary="All" class="red-text" aria-live="polite"></div>
+
+                            <!-- Campo Email -->
+                            <div class="input-field">
+                                <i class="material-icons prefix">email</i>
+                                <input asp-for="Correo" id="correo" type="email" class="validate" autocomplete="email" aria-label="Correo Electrónico"/>
+                                <label asp-for="Correo">Correo Electrónico</label>
+                                <span asp-validation-for="Correo" class="helper-text red-text"></span>
+                            </div>
+
+                            <!-- Campo Contraseña -->
+                            <div class="input-field">
+                                <i class="material-icons prefix">lock</i>
+                                <input asp-for="Contrasena" id="contrasena" type="password" class="validate" autocomplete="current-password" aria-label="Contraseña" />
+                                <label asp-for="Contrasena">Contraseña</label>
+                                <span asp-validation-for="Contrasena" class="helper-text red-text"></span>
+                            </div>
+
+                            <!-- Botón de envío -->
+                            <div class="center-align">
+                                <button type="submit" class="btn waves-effect waves-light blue" aria-label="Iniciar Sesión">
+                                    Iniciar Sesión
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                            <div asp-validation-summary="All" class="red-text text-darken-2"></div>
+                        </form>
+                    </div>
+
+                    <!-- Footer/Enlaces adicionales -->
+                    <div class="card-action center-align">
+                        <a href="#!" class="blue-text">¿Olvidó su contraseña?</a>
+                        <span class="grey-text">|</span>
+                        <a href="#!" class="blue-text">Registrarse</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <!-- jQuery y Materialize JS -->
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/materialize/js/materialize.min.js"></script>
+
+        <!-- Scripts de validación -->
+        <partial name="_ValidationScriptsPartial" />
+
+        <!-- Inicialización de componentes Materialize -->
+        <script>
+            $(document).ready(function(){
+                // Inicializar elementos de Materialize
+                M.updateTextFields();
+            });
+        </script>
+    }
+</body>
+

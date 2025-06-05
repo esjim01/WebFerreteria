@@ -21,7 +21,27 @@ namespace WebFerreteria.Controllers
         // GET: DetallePedido
         public async Task<IActionResult> Index()
         {
-            var ferreteriaDbContext = _context.DetallePedido.Include(d => d.Pedido).Include(d => d.Producto);
+            var resumenVentas = await _context.DetallePedido
+    .Include(d => d.Producto)
+    .GroupBy(d => new { d.ProductoId, d.Producto.Nombre })
+    .Select(g => new
+    {
+        Producto = g.Key.Nombre,
+        TotalCantidad = g.Sum(x => x.Cantidad),
+        TotalVentas = g.Sum(x => x.Cantidad * x.PrecioUnitario)
+    })
+    .OrderByDescending(x => x.TotalCantidad)
+    .ToListAsync();
+
+            ViewBag.ResumenVentas = resumenVentas;
+
+            var ferreteriaDbContext = _context.DetallePedido
+                .Include(d => d.Pedido)
+                    .ThenInclude(p => p.Cliente)
+                .Include(d => d.Producto)
+                .OrderBy(d => d.Producto.Nombre);
+
+            //var ferreteriaDbContext = _context.DetallePedido.Include(d => d.Pedido).Include(d => d.Producto);
             return View(await ferreteriaDbContext.ToListAsync());
         }
 
@@ -35,8 +55,10 @@ namespace WebFerreteria.Controllers
 
             var detallePedido = await _context.DetallePedido
                 .Include(d => d.Pedido)
+                .ThenInclude(p => p.Cliente)
                 .Include(d => d.Producto)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (detallePedido == null)
             {
                 return NotFound();
@@ -48,8 +70,14 @@ namespace WebFerreteria.Controllers
         // GET: DetallePedido/Create
         public IActionResult Create()
         {
-            ViewData["PedidoId"] = new SelectList(_context.Pedidos, "Id", "Id");
-            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "Id");
+            ViewData["PedidoId"] = new SelectList(_context.Pedidos
+                .Include(p => p.Cliente)
+                .Select(p => new {
+                    p.Id,
+                    Descripcion = $"Pedido #{p.Id} - Cliente: {p.Cliente.Nombre} - {p.Fecha:dd/MM/yyyy}"
+                }), "Id", "Descripcion");
+
+            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "Nombre");
             return View();
         }
 
@@ -107,6 +135,8 @@ namespace WebFerreteria.Controllers
                 {
                     _context.Update(detallePedido);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Detalle de pedido actualizado correctamente";
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {

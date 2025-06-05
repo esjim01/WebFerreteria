@@ -21,7 +21,9 @@ public partial class Usuarios
     public bool? Estado { get; set; }
 
     public virtual ICollection<Entregas> Entregas { get; set; } = new List<Entregas>();
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> parent of b3178de (Se crea api para integracion de las funcionalidades)
 }
-
