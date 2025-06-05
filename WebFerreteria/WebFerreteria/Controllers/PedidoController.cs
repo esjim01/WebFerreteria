@@ -19,10 +19,34 @@ namespace WebFerreteria.Controllers
         }
 
         // GET: Pedido
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string estado)
         {
-            var ferreteriaDbContext = _context.Pedidos.Include(p => p.Cliente);
-            return View(await ferreteriaDbContext.ToListAsync());
+            // Obtener todos los estados distintos para el dropdown
+            var estados = await _context.Pedidos
+                .Select(p => p.Estado)
+                .Distinct()
+                .ToListAsync();
+
+            ViewData["Estados"] = estados;
+            ViewData["EstadoSeleccionado"] = estado;
+
+            // Consulta base
+            var query = _context.Pedidos
+                .Include(p => p.Cliente)
+                .AsQueryable();
+
+            // Aplicar filtro si se seleccionó un estado
+            if (!string.IsNullOrEmpty(estado))
+            {
+                query = query.Where(p => p.Estado == estado);
+            }
+
+            // Ordenar y ejecutar la consulta
+            var pedidos = await query
+                .OrderBy(p => p.Cliente.Nombre)
+                .ToListAsync();
+
+            return View(pedidos);
         }
 
         // GET: Pedido/Details/5
@@ -44,13 +68,6 @@ namespace WebFerreteria.Controllers
             return View(pedidos);
         }
 
-        // GET: Pedido/Create
-        public IActionResult Create()
-        {
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id");
-            return View();
-        }
-
         // POST: Pedido/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -64,7 +81,7 @@ namespace WebFerreteria.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id", pedidos.ClienteId);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Nombre", pedidos.ClienteId);
             return View(pedidos);
         }
 
@@ -81,7 +98,7 @@ namespace WebFerreteria.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id", pedidos.ClienteId);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Nombre", pedidos.ClienteId);
             return View(pedidos);
         }
 
@@ -117,7 +134,7 @@ namespace WebFerreteria.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id", pedidos.ClienteId);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Nombre", pedidos.ClienteId);
             return View(pedidos);
         }
 

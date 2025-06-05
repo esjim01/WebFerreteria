@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Generar Reportes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .report-card {
+        background: #fdfdfd;
+        padding: 25px;
+        margin: 20px auto;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .report-card h5 {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+    .report-btn {
+        margin: 10px 0;
+        width: 100%;
+    }
+</style>
+
+<div class="container">
+    <div class="section center-align">
+        <h4><strong>Panel de Reportes</strong></h4>
+        <p>Desde aquí puedes generar y descargar reportes del sistema</p>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m8 offset-m2">
+            <div class="report-card z-depth-2 center-align">
+                <h5>Reportes Disponibles</h5>
+
+                <a href="@Url.Action("GenerarReportePDF", "Reportes")" class="btn blue darken-2 report-btn" target="_blank">
+                    <i class="material-icons left">picture_as_pdf</i>
+                    Generar Reporte de Productos (PDF)
+                </a>
+
+                <a href="@Url.Action("GenerarReporteExcel", "Reportes")" class="btn green darken-2 report-btn disabled">
+                    <i class="material-icons left">table_chart</i>
+                    Generar Reporte de Pedidos (Excel)
+                </a>
+
+                <a href="@Url.Action("GenerarReporteStock", "Reportes")" class="btn red darken-1 report-btn disabled">
+                    <i class="material-icons left">warning</i>
+                    Reporte de Stock Crítico
+                </a>
+
+                <p class="grey-text">* Los reportes en gris aún no están habilitados</p>
+            </div>
+        </div>
+    </div>
+</div>

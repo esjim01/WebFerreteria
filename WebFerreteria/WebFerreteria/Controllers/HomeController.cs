@@ -13,15 +13,22 @@ namespace WebFerreteria.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly FerreteriaDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, FerreteriaDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            // Obtener lista de productos con su stock actual
+            var productos = await _context.Productos
+                .OrderBy(p => p.Nombre)
+                .ToListAsync();
+
+            return View(productos); // Pasar la lista a la vista
         }
 
         public IActionResult Privacy()
