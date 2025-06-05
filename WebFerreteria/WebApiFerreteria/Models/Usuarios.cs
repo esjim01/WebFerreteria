@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace WebFerreteria.Models;
+namespace WebApiFerreteria.Models;
 
 public partial class Usuarios
 {
@@ -10,9 +9,7 @@ public partial class Usuarios
 
     public string? NombreCompleto { get; set; }
 
-
     public string? Correo { get; set; }
-
 
     public string? Contrasena { get; set; }
 
@@ -21,7 +18,4 @@ public partial class Usuarios
     public bool? Estado { get; set; }
 
     public virtual ICollection<Entregas> Entregas { get; set; } = new List<Entregas>();
-
-
 }
-

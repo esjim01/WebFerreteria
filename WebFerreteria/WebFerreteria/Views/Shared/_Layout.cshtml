@@ -19,12 +19,13 @@
     <header>
         <nav class="blue darken-2">
             <div class="nav-wrapper container">
-                <a href="/" class="brand-logo">La Puntilla</a>
-
-                <a href="#" data-target="mobile-nav" class="sidenav-trigger">
+                <div class="col s3">
+                <a class="brand-logo">La Puntilla</a>
+                <a data-target="mobile-nav" class="sidenav-trigger">
                     <i class="material-icons">menu</i>
                 </a>
-
+                </div>
+                <div class="col s9">
                 <ul class="right hide-on-med-and-down">
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-controller="Home" asp-action="Privacy">Politicas</a></li>
@@ -65,12 +66,13 @@
                     {
                         // Botón para iniciar sesión si el usuario NO está autenticado
                         <li>
-                            <a asp-controller="Login" asp-action="Index">
+                            <a asp-controller="Account" asp-action="Login">
                                 <i class="material-icons left">account_circle</i>Iniciar Sesión
                             </a>
                         </li>
                     }
                 </ul>
+                </div>
             </div>
         </nav>
 
@@ -116,7 +118,7 @@
             {
                 // Botón login móvil
                 <li>
-                    <a asp-controller="Home" asp-action="login">
+                    <a asp-controller="Account" asp-action="Login">
                         <i class="material-icons left">account_circle</i>Iniciar Sesión
                     </a>
                 </li>
@@ -152,6 +154,10 @@
         document.addEventListener('DOMContentLoaded', function () {
             M.AutoInit();
         });
+
+        @section Scripts {
+                <partial name="_ValidationScriptsPartial" />
+        }
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
